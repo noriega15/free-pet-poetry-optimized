@@ -25,10 +25,10 @@ const FeatureSection = ({ posts }) => {
     <section className="section feature" aria-label="feature" id="featured">
       <div className="container">
         <h2 className="headline headline-2 section-title">
-          <span className="span">Editor's picked</span>
+          <span className="span">Featured Poetry</span>
         </h2>
 
-        <p className="section-text">Featured and highly rated articles</p>
+        <p className="section-text">Handpicked Poetry Selections</p>
 
         <ul className="feature-list">
           {featurePosts.map((post, index) => {
@@ -41,13 +41,15 @@ const FeatureSection = ({ posts }) => {
               <li key={index}>
                 <div className="card feature-card">
                   <figure className="card-banner img-holder custom-banner">
-                    {imagePath && (
-                      <img
-                        src={imagePath}
-                        alt={altDescription}
-                        className="img-cover"
-                      />
-                    )}
+                    <Link to={post.fields.slug} className="card-title hover-2">
+                      {imagePath && (
+                        <img
+                          src={imagePath}
+                          alt={altDescription}
+                          className="img-cover"
+                        />
+                      )}
+                    </Link>
                   </figure>
 
                   <div className="card-content">
@@ -102,7 +104,7 @@ const FeatureSection = ({ posts }) => {
           })}
         </ul>
 
-        <a href="/blog" className="btn btn-secondary">
+        <a href="/featured-poems/" className="btn btn-secondary">
           <span className="span">Show More Posts</span>
           <IonIcon icon={arrowForward} aria-hidden="true" />
         </a>

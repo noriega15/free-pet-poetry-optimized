@@ -89,7 +89,7 @@ const Header = ({ isNavbarOpen, closeNavbar, toggleNavbar }) => {
 
             <li>
               <a
-                href="/recent/"
+                href="/recent-poems/"
                 className="navbar-link hover-1"
                 data-nav-toggler
                 onClick={closeNavbar}

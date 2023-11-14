@@ -8,7 +8,7 @@ const TagsSection = () => {
           <span className="span">Popular Tags</span>
         </h2>
 
-        <p className="section-text">Most searched keywords</p>
+        <p className="section-text">Dogs</p>
 
         <ul className="grid-list">
           <li>
@@ -20,7 +20,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Travel"
               />
-              <p className="btn-text">Travel</p>
+              <p className="btn-text">Cats</p>
             </button>
           </li>
 
@@ -33,7 +33,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Culture"
               />
-              <p className="btn-text">Culture</p>
+              <p className="btn-text">RainbowBridge</p>
             </button>
           </li>
 
@@ -46,7 +46,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Lifestyle"
               />
-              <p className="btn-text">Lifestyle</p>
+              <p className="btn-text">Sympathy</p>
             </button>
           </li>
 
@@ -59,7 +59,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Fashion"
               />
-              <p className="btn-text">Fashion</p>
+              <p className="btn-text">Birds</p>
             </button>
           </li>
 
@@ -72,7 +72,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Food"
               />
-              <p className="btn-text">Food</p>
+              <p className="btn-text">PetLoss</p>
             </button>
           </li>
 
@@ -85,7 +85,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Space"
               />
-              <p className="btn-text">Space</p>
+              <p className="btn-text">Memories</p>
             </button>
           </li>
 
@@ -98,7 +98,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Animal"
               />
-              <p className="btn-text">Animal</p>
+              <p className="btn-text">Grief</p>
             </button>
           </li>
 
@@ -124,7 +124,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Interior"
               />
-              <p className="btn-text">Interior</p>
+              <p className="btn-text">Unconditional</p>
             </button>
           </li>
 
@@ -137,7 +137,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Plant"
               />
-              <p className="btn-text">Plant</p>
+              <p className="btn-text">Heartfelt</p>
             </button>
           </li>
 
@@ -150,7 +150,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Nature"
               />
-              <p className="btn-text">Nature</p>
+              <p className="btn-text">Tribute</p>
             </button>
           </li>
 
@@ -163,7 +163,7 @@ const TagsSection = () => {
                 loading="lazy"
                 alt="Business"
               />
-              <p className="btn-text">Business</p>
+              <p className="btn-text">Inspiration</p>
             </button>
           </li>
         </ul>

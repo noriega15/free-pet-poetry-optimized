@@ -3,9 +3,9 @@ import { Link } from "gatsby"
 import { IonIcon } from "@ionic/react"
 import { arrowForward, arrowBack, timeOutline } from "ionicons/icons"
 import PopularPostsSection from "./PopularPostsSection"
+import slugify from "slugify"
 
 const RecentPostsSection = ({ posts }) => {
-  // Sort the posts by date from newest to oldest
   const sortedPosts = posts.slice().sort((a, b) => {
     const dateA = new Date(a.frontmatter.date)
     const dateB = new Date(b.frontmatter.date)
@@ -59,8 +59,8 @@ const RecentPostsSection = ({ posts }) => {
                 const imagePath = `/blog/${imageFolder}.jpg`
 
                 return (
-                  <Link to={post.fields.slug} itemProp="url">
-                    <div key={post.fields.slug} className="recent-post-card">
+                  <div key={post.fields.slug} className="recent-post-card">
+                    <Link to={post.fields.slug} itemProp="url">
                       <figure
                         className="card-banner img-holder "
                         style={{ width: "271px", height: "258px" }}
@@ -76,22 +76,31 @@ const RecentPostsSection = ({ posts }) => {
                           />
                         )}
                       </figure>
-                      <li>
-                        <div
-                          className="card-content"
-                          itemScope
-                          itemType="http://schema.org/Article"
-                        >
-                          {post.frontmatter.topic
-                            .split(",")
-                            .map((topic, index) => (
-                              <div key={index} className="card-badge">
-                                <span className="span hover-2">
-                                  {topic.trim()}
-                                </span>
-                              </div>
-                            ))}
-
+                    </Link>
+                    <li>
+                      <div
+                        className="card-content"
+                        itemScope
+                        itemType="http://schema.org/Article"
+                      >
+                        {post.frontmatter.topic
+                          .split(",")
+                          .map((postTopic, index) => (
+                            <div key={index} className="card-badge">
+                              <a
+                                href={`/topics/${slugify(
+                                  postTopic
+                                    .trim()
+                                    .toLowerCase()
+                                    .replace(/\s+/g, "-")
+                                )}/`}
+                                className="span hover-2"
+                              >
+                                {postTopic.trim()}
+                              </a>
+                            </div>
+                          ))}
+                        <Link to={post.fields.slug} itemProp="url">
                           <h3 className="headline headline-3 card-title">
                             <span className="link hover-2" itemProp="headline">
                               {title}
@@ -102,38 +111,59 @@ const RecentPostsSection = ({ posts }) => {
                               {subtitle}
                             </span>
                           </h4>
-                          <p
-                            className="card-text"
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                post.frontmatter.description || post.excerpt,
-                            }}
-                            itemProp="description"
-                          />
-                          <p className="card-text">{post.frontmatter.date}</p>
-                          <div className="card-wrapper">
-                            <div className="card-tag">
-                              {post.frontmatter.tags
-                                .split(",")
-                                .map((tag, index) => (
-                                  <span className="span hover-2" key={index}>
+                        </Link>
+                        <p
+                          className="card-text"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              post.frontmatter.description || post.excerpt,
+                          }}
+                          itemProp="description"
+                        />
+
+                        <Link
+                          to={post.fields.slug}
+                          itemProp="url"
+                          className="btn btn-primary btn-continue"
+                        >
+                          <span className="span">Read More</span>
+                          <IonIcon icon={arrowForward} aria-hidden="true" />
+                        </Link>
+                        <p className="card-text">{post.frontmatter.date}</p>
+                        <div className="card-wrapper">
+                          <div className="card-tag">
+                            {post.frontmatter.tags
+                              .split(",")
+                              .map((tag, index) => {
+                                const tagLink = `/tags/${tag
+                                  .replace(/^#/, "")
+                                  .trim()
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-")}`
+
+                                return (
+                                  <Link
+                                    to={tagLink}
+                                    className="span hover-2"
+                                    key={index}
+                                  >
                                     {tag.trim()}{" "}
-                                  </span>
-                                ))}
-                            </div>
+                                  </Link>
+                                )
+                              })}
+                          </div>
 
-                            <div className="wrapper">
-                              <IonIcon icon={timeOutline} aria-hidden="true" />
+                          <div className="wrapper">
+                            <IonIcon icon={timeOutline} aria-hidden="true" />
 
-                              <span className="span">
-                                {post.frontmatter.readtime} min
-                              </span>
-                            </div>
+                            <span className="span">
+                              {post.frontmatter.readtime} min
+                            </span>
                           </div>
                         </div>
-                      </li>
-                    </div>
-                  </Link>
+                      </div>
+                    </li>
+                  </div>
                 )
               })}
             </ol>

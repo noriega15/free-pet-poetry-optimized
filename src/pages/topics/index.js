@@ -260,6 +260,15 @@ const TopicsPage = ({ data, location }) => {
                                     )
                                   })}
                               </div>
+                              <div className="wrapper">
+                                <IonIcon
+                                  icon={timeOutline}
+                                  aria-hidden="true"
+                                />
+                                <span className="span">
+                                  {post.node.frontmatter.readtime} min
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </li>
