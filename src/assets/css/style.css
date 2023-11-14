@@ -1038,35 +1038,50 @@ form button {
 \*-----------------------------------*/
 
 .tags .grid-list {
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
 }
 
-.tag-btn {
+.card.tag-btn {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 18px;
+  text-align: center;
+  padding: 14px;
   border-radius: var(--radius-16);
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.tag-btn:is(:hover, :focus-visible) {
-  box-shadow: var(--shadow-2);
-  background-image: linear-gradient(
-      var(--bg-oxford-blue),
-      var(--bg-oxford-blue)
-    ),
-    var(--gradient-1);
-  background-clip: padding-box, border-box;
-  border-color: transparent;
-  transform: translateY(-2px);
-  transition: var(--transition-1);
+.card.tag-btn:hover {
+  background-color: #f0f0f0;
 }
 
-.tag-btn img {
-  width: 100%;
-  max-width: 32px;
+.btn-tags {
+  margin: auto;
+}
+.tags .grid-list-page {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.card.tag-btn-page {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3px 10px 3px;
+  border-radius: var(--radius-16);
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.card.tag-btn-page:hover {
+  background-color: #f0f0f0;
 }
 
 /*-----------------------------------*\

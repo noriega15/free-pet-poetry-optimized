@@ -1,6 +1,23 @@
 import React from "react"
+import { IonIcon } from "@ionic/react"
+import { arrowForward } from "ionicons/icons"
 
 const TagsSection = () => {
+  const tags = [
+    { label: "🐱 Cats", url: "/tags/cats/" },
+    { label: "🌈 RainbowBridge", url: "/tags/rainbowbridge/" },
+    { label: "🐶 Dogs", url: "/tags/dogs/" },
+    { label: "🐦 Birds", url: "/tags/birds/" },
+    { label: "💔 PetLoss", url: "/tags/petloss/" },
+    { label: "📖 Memories", url: "/tags/memories/" },
+    { label: "😢 Grief", url: "/tags/grief/" },
+    { label: "🤝 Sympathy", url: "/tags/sympathy/" },
+    { label: "💖 Unconditional", url: "/tags/unconditional/" },
+    { label: "💕 Heartfelt", url: "/tags/heartfelt/" },
+    { label: "🎗️ Tribute", url: "/tags/tribute/" },
+    { label: "🌟 Inspiration", url: "/tags/inspiration/" },
+  ]
+
   return (
     <section className="tags" aria-labelledby="tag-label">
       <div className="container">
@@ -8,165 +25,23 @@ const TagsSection = () => {
           <span className="span">Popular Tags</span>
         </h2>
 
-        <p className="section-text">Dogs</p>
+        <p className="section-text">
+          Leaving Imprints of Unconditional Love and Cherished Memories
+        </p>
 
         <ul className="grid-list">
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag1.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Travel"
-              />
-              <p className="btn-text">Cats</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag2.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Culture"
-              />
-              <p className="btn-text">RainbowBridge</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag3.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Lifestyle"
-              />
-              <p className="btn-text">Sympathy</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag4.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Fashion"
-              />
-              <p className="btn-text">Birds</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag5.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Food"
-              />
-              <p className="btn-text">PetLoss</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag6.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Space"
-              />
-              <p className="btn-text">Memories</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag7.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Animal"
-              />
-              <p className="btn-text">Grief</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag8.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Minimal"
-              />
-              <p className="btn-text">Minimal</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag9.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Interior"
-              />
-              <p className="btn-text">Unconditional</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag10.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Plant"
-              />
-              <p className="btn-text">Heartfelt</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag11.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Nature"
-              />
-              <p className="btn-text">Tribute</p>
-            </button>
-          </li>
-
-          <li>
-            <button className="card tag-btn">
-              <img
-                src="/images/tag12.png"
-                width="32"
-                height="32"
-                loading="lazy"
-                alt="Business"
-              />
-              <p className="btn-text">Inspiration</p>
-            </button>
-          </li>
+          {tags.map((tag, index) => (
+            <li key={index}>
+              <a href={tag.url} className="card tag-btn">
+                <p className="btn-text">{tag.label}</p>
+              </a>
+            </li>
+          ))}
         </ul>
+        <a href="/tags/" className="btn btn-secondary btn-tags-page">
+          <span className="span">Explore All Tags</span>
+          <IonIcon icon={arrowForward} aria-hidden="true" />
+        </a>
       </div>
     </section>
   )
