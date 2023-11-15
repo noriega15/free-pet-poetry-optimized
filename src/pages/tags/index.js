@@ -12,6 +12,8 @@ const TagsPage = ({ data, location }) => {
   const [selectedTag, setSelectedTag] = useState(null)
   const recentPostsRef = useRef(null)
   const [selectedPost, setSelectedPost] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 10
 
   const handleTagClick = tag => {
     setSelectedTag(tag)
@@ -31,7 +33,10 @@ const TagsPage = ({ data, location }) => {
       )
 
       if (postElement) {
-        postElement.scrollIntoView({ behavior: "smooth" })
+        // Instead of focusing on the post element, scroll to the top of the section
+        postElement
+          .closest(".section.recent-post")
+          .scrollIntoView({ behavior: "smooth", block: "start" })
       }
     }
   }
@@ -40,8 +45,6 @@ const TagsPage = ({ data, location }) => {
     ? allPosts.filter(post => post.frontmatter.tags.includes(selectedTag))
     : allPosts
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 10
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
 
   const handlePageChange = page => {
@@ -50,14 +53,174 @@ const TagsPage = ({ data, location }) => {
   }
 
   const scrollToTop = () => {
-    if (recentPostsRef.current) {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const fromAnotherPage = urlSearchParams.get("from") === "anotherPage"
+
+    if (!fromAnotherPage && recentPostsRef.current) {
       recentPostsRef.current.scrollIntoView({ behavior: "smooth" })
+    } else {
+      // Scroll to the top of the page
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
     }
   }
 
   useEffect(() => {
     scrollToTop()
   }, [selectedTag, currentPage])
+
+  const renderTagButtons = () => (
+    <div className="grid-list-page">
+      {allPosts
+        .reduce(
+          (tags, post) => tags.concat(post.frontmatter.tags.split(", ")),
+          []
+        )
+        .filter((tag, index, self) => self.indexOf(tag) === index)
+        .map((tag, index) => (
+          <button
+            key={index}
+            onClick={() => handleTagClick(tag)}
+            className={`card tag-btn-page ${
+              tag === selectedTag ? "active" : ""
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+    </div>
+  )
+
+  const renderRecentPosts = () => (
+    <ul className="grid-list">
+      {filteredPosts
+        .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+        .map(post => {
+          const title = post.frontmatter.title || post.fields.slug
+          const subtitle = post.frontmatter.subtitle
+          const imageFolder = post.fields.slug.split("/").slice(-2, -1)[0]
+          const altDescription = post.frontmatter.alt || title
+          const imagePath = `/blog/${imageFolder}.jpg`
+
+          return (
+            <div key={post.fields.slug} className="recent-post-card">
+              <Link
+                to="#"
+                itemProp="url"
+                onClick={e => {
+                  e.preventDefault()
+                  handlePostClick(post)
+                }}
+              >
+                <figure
+                  className="card-banner img-holder "
+                  style={{ width: "271px", height: "258px" }}
+                >
+                  {imagePath && (
+                    <img
+                      src={imagePath}
+                      alt={altDescription}
+                      width="271"
+                      height="258"
+                      loading="lazy"
+                      className="img-cover"
+                    />
+                  )}
+                </figure>
+              </Link>
+              <li>
+                <div
+                  className="card-content"
+                  itemScope
+                  itemType="http://schema.org/Article"
+                >
+                  {post.frontmatter.topic.split(",").map((postTopic, index) => (
+                    <div key={index} className="card-badge">
+                      <a
+                        href={`/topics/${slugify(postTopic, {
+                          lower: true,
+                          strict: true,
+                        })}/`}
+                        className="span hover-2"
+                      >
+                        {postTopic.trim()}
+                      </a>
+                    </div>
+                  ))}
+                  <Link
+                    to="#"
+                    itemProp="url"
+                    onClick={e => {
+                      e.preventDefault()
+                      handlePostClick(post)
+                    }}
+                  >
+                    <h3 className="headline headline-3 card-title">
+                      <span className="link hover-2" itemProp="headline">
+                        {title}
+                      </span>
+                    </h3>
+                    <h4 className="headline headline-4 card-title">
+                      <span className="link hover-2" itemProp="headline">
+                        {subtitle}
+                      </span>
+                    </h4>
+                  </Link>
+                  <p
+                    className="card-text"
+                    dangerouslySetInnerHTML={{
+                      __html: post.frontmatter.description || post.excerpt,
+                    }}
+                    itemProp="description"
+                  />
+
+                  <Link
+                    to="#"
+                    itemProp="url"
+                    onClick={e => {
+                      e.preventDefault()
+                      handlePostClick(post)
+                    }}
+                    className="btn btn-primary btn-continue"
+                  >
+                    <span className="span">Read More</span>
+                    <IonIcon icon={arrowForward} aria-hidden="true" />
+                  </Link>
+                  <p className="card-text">{post.frontmatter.date}</p>
+                  <div className="card-wrapper">
+                    <div className="card-tag">
+                      {post.frontmatter.tags.split(",").map((tag, index) => {
+                        return (
+                          <button
+                            key={index}
+                            onClick={() => handleTagClick(tag)}
+                            className={`span hover-2 ${
+                              tag === selectedTag ? "active" : ""
+                            }`}
+                          >
+                            {tag.trim()}{" "}
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    <div className="wrapper">
+                      <IonIcon icon={timeOutline} aria-hidden="true" />
+
+                      <span className="span">
+                        {post.frontmatter.readtime} min
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+          )
+        })}
+    </ul>
+  )
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -67,25 +230,7 @@ const TagsPage = ({ data, location }) => {
             <h2 className="headline headline-2 section-title">
               <span className="span">Explore Tags</span>
             </h2>
-            <div className="grid-list-page">
-              {allPosts
-                .reduce((tags, post) => {
-                  const postTags = post.frontmatter.tags.split(", ")
-                  return tags.concat(postTags)
-                }, [])
-                .filter((tag, index, self) => self.indexOf(tag) === index)
-                .map((tag, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleTagClick(tag)}
-                    className={`card tag-btn-page ${
-                      tag === selectedTag ? "active" : ""
-                    }`}
-                  >
-                    {tag}
-                  </button>
-                ))}
-            </div>
+            {renderTagButtons()}
           </div>
         </div>
       </section>
@@ -110,139 +255,7 @@ const TagsPage = ({ data, location }) => {
                 ? `Explore a Collection of Poems Tagged with ${selectedTag}`
                 : "Discover the latest poems and essential pet care tips!"}
             </p>
-            <ul className="grid-list">
-              {filteredPosts
-                .slice(
-                  (currentPage - 1) * postsPerPage,
-                  currentPage * postsPerPage
-                )
-                .map(post => {
-                  const title = post.frontmatter.title || post.fields.slug
-                  const subtitle = post.frontmatter.subtitle
-                  const imageFolder = post.fields.slug
-                    .split("/")
-                    .slice(-2, -1)[0]
-                  const altDescription = post.frontmatter.alt || title
-                  const imagePath = `/blog/${imageFolder}.jpg`
-
-                  return (
-                    <div key={post.fields.slug} className="recent-post-card">
-                      <Link
-                        to="#"
-                        itemProp="url"
-                        onClick={() => handlePostClick(post)}
-                      >
-                        <figure
-                          className="card-banner img-holder "
-                          style={{ width: "271px", height: "258px" }}
-                        >
-                          {imagePath && (
-                            <img
-                              src={imagePath}
-                              alt={altDescription}
-                              width="271"
-                              height="258"
-                              loading="lazy"
-                              className="img-cover"
-                            />
-                          )}
-                        </figure>
-                      </Link>
-                      <li>
-                        <div
-                          className="card-content"
-                          itemScope
-                          itemType="http://schema.org/Article"
-                        >
-                          {post.frontmatter.topic
-                            .split(",")
-                            .map((postTopic, index) => (
-                              <div key={index} className="card-badge">
-                                <a
-                                  href={`/topics/${slugify(postTopic, {
-                                    lower: true,
-                                    strict: true,
-                                  })}/`}
-                                  className="span hover-2"
-                                >
-                                  {postTopic.trim()}
-                                </a>
-                              </div>
-                            ))}
-                          <Link
-                            to="#"
-                            itemProp="url"
-                            onClick={() => handlePostClick(post)}
-                          >
-                            <h3 className="headline headline-3 card-title">
-                              <span
-                                className="link hover-2"
-                                itemProp="headline"
-                              >
-                                {title}
-                              </span>
-                            </h3>
-                            <h4 className="headline headline-4 card-title">
-                              <span
-                                className="link hover-2"
-                                itemProp="headline"
-                              >
-                                {subtitle}
-                              </span>
-                            </h4>
-                          </Link>
-                          <p
-                            className="card-text"
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                post.frontmatter.description || post.excerpt,
-                            }}
-                            itemProp="description"
-                          />
-
-                          <Link
-                            to="#"
-                            itemProp="url"
-                            onClick={() => handlePostClick(post)}
-                            className="btn btn-primary btn-continue"
-                          >
-                            <span className="span">Read More</span>
-                            <IonIcon icon={arrowForward} aria-hidden="true" />
-                          </Link>
-                          <p className="card-text">{post.frontmatter.date}</p>
-                          <div className="card-wrapper">
-                            <div className="card-tag">
-                              {post.frontmatter.tags
-                                .split(",")
-                                .map((tag, index) => {
-                                  return (
-                                    <button
-                                      key={index}
-                                      onClick={() => handleTagClick(tag)}
-                                      className={`span hover-2 ${
-                                        tag === selectedTag ? "active" : ""
-                                      }`}
-                                    >
-                                      {tag.trim()}{" "}
-                                    </button>
-                                  )
-                                })}
-                            </div>
-
-                            <div className="wrapper">
-                              <IonIcon icon={timeOutline} aria-hidden="true" />
-
-                              <span className="span">
-                                {post.frontmatter.readtime} min
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </div>
-                  )
-                })}
-            </ul>
+            {renderRecentPosts()}
             <nav aria-label="pagination" className="pagination">
               <button
                 className="pagination-btn"
