@@ -5,7 +5,7 @@ description: "Hello World"
 keywords: keyword1, keyword2, keyword3
 catagory: Action
 topic: Pet Memorial, Cats
-tags: tag1, tag2, tag3
+tags: Cats, Dogs, Birds
 featurescore: 8
 popularity: 8
 readtime: 2

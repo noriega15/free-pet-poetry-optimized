@@ -5,7 +5,7 @@ description: "Artificial Intelligence Insights"
 keywords: AI, technology, future
 category: Technology
 topic: Pet Memorial, Aquatic Companions
-tags: machine-learning, robotics, AI-ethics
+tags: Inspitation, Tribute, Grief
 featurescore: 8
 popularity: 6
 readtime: 5

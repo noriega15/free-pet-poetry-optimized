@@ -1,183 +1,332 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { IonIcon } from "@ionic/react"
-import { logoTwitter, logoFacebook, logoInstagram } from "ionicons/icons"
-
+import React, { useRef, useEffect } from "react"
+import { graphql, Link } from "gatsby"
 import Layout from "../../components/Layout"
 import Seo from "../../components/seo"
+import slugify from "slugify"
+import { IonIcon } from "@ionic/react"
+import { timeOutline, arrowForward, arrowBack } from "ionicons/icons"
 
 const AquaticCompanionsPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
+  const topicsArray = [
+    { topic: "Pet Memorial" },
+    { topic: "Dogs" },
+    { topic: "Cats" },
+    { topic: "Birds" },
+    { topic: "Small Pets" },
+    { topic: "Aquatic Companions" },
+    { topic: "Exotic Animals" },
+    { topic: "Pet Care" },
+  ]
+
+  // Map each topic to its associated posts
+  const postsByTopic = topicsArray.reduce((acc, topicObj) => {
+    const topic = topicObj.topic
+    const filteredPosts = data.allMarkdownRemark.edges
+      .filter(edge => edge.node.frontmatter.topic.includes(topic))
+      .sort((a, b) => {
+        return b.node.frontmatter.popularity - a.node.frontmatter.popularity
+      })
+
+    acc[topic] = filteredPosts
+    return acc
+  }, {})
+
+  // Count all articles for each topic
+  const articleCountsByTopic = topicsArray.reduce((acc, topicObj) => {
+    const topic = topicObj.topic
+    acc[topic] = postsByTopic[topic] ? postsByTopic[topic].length : 0
+    return acc
+  }, {})
+
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const postsPerPage = 10 // Change this value based on your requirement
+
+  // Calculate total pages Aquatic Companions
+  const totalPosts = postsByTopic["Aquatic Companions"]
+    ? postsByTopic["Aquatic Companions"].length
+    : 0
+  const totalPages = Math.ceil(totalPosts / postsPerPage)
+  const topicPostRef = useRef(null)
+
+  useEffect(() => {
+    // Scroll to the top of the topicPostRef when currentPage changes
+    if (topicPostRef.current) {
+      window.scrollTo({
+        top: topicPostRef.current.offsetTop,
+        behavior: "smooth",
+      })
+    }
+  }, [currentPage])
+
+  const handlePageChange = newPage => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage)
+    }
+  }
+
   return (
     <Layout location={location} title={siteTitle}>
-      <section className="single">
+      <section
+        className="single"
+        id="topic"
+        aria-labelledby="topic-label"
+        ref={topicPostRef}
+      >
         <div className="container">
-          <div className="single-content">
-            <p className="single-subtitle">
-              Celebrating Pet Love Through Poetry
-            </p>
-            <h1 className="headline headline-2 section-title">
-              <span className="span">About Free Pet Poetry</span>
-            </h1>
-            <h2 className="headline headline-3 section-title">
-              Welcome to Free Pet Poetry!
-            </h2>
-            <p className="single-text">
-              Where heartfelt words come together to celebrate the special bond
-              between humans and their beloved pets. Our mission is to harness
-              the power of poetry to honor the furry, feathered, or scaly
-              companions who bring immeasurable love and joy into our lives.
-            </p>
-            <p className="single-text">
-              At Free Pet Poetry, we understand that pets are more than just
-              animals; they are cherished family members, loyal friends, and
-              constant sources of inspiration. We believes that every pet
-              deserves to have their story told, their personality captured, and
-              their memory cherished through the art of poetry.
-            </p>
-            <h2 className="headline headline-3 section-title">Our Vision</h2>
-            <p className="single-text">
-              Our vision is simple yet profound: to spread love, joy, and
-              comfort through the power of poetry. We want to touch hearts and
-              create lasting memories by crafting custom poems that capture the
-              essence of your pet's unique spirit.
-            </p>
-            <p className="single-text">
-              Whether you're celebrating a joyful moment with your furry friend
-              or remembering a beloved companion who has crossed the Rainbow
-              Bridge, Free Pet Poetry is here to help you express your emotions
-              through the beauty of words.
-            </p>
-            <h2 className="headline headline-3 section-title">Our Mission</h2>
-            <ol>
-              <li>
-                <strong>Celebrating Life:</strong> We celebrate the lives of
-                pets, both present and past, by composing poems that highlight
-                their quirks, their unconditional love, and the happiness they
-                bring to your world.
-              </li>
+          {/* Topic Sections */}
+          <section>
+            {topicsArray
+              .filter(topicObj => topicObj.topic === "Aquatic Companions")
+              .map((topicObj, index) => {
+                const topic = topicObj.topic
 
-              <li>
-                <strong>Honoring Memories:</strong> We offer a loving tribute to
-                pets who have left us but remain forever in our hearts. Our
-                memorial poems provide solace and comfort during times of loss.
-              </li>
+                // Corrected calculation for postsForTopic
+                const postsForTopic = postsByTopic[topic]
+                  .slice(
+                    (currentPage - 1) * postsPerPage,
+                    currentPage * postsPerPage
+                  )
+                  .map(post => {
+                    const title =
+                      post.node.frontmatter.title || post.node.fields.slug
+                    const subtitle = post.node.frontmatter.subtitle
+                    const imageFolder = post.node.fields.slug
+                      .split("/")
+                      .slice(-2, -1)[0]
+                    const altDescription = post.node.frontmatter.alt || title
+                    const imagePath = `/blog/${imageFolder}.jpg`
 
-              <li>
-                <strong>Fostering Connection:</strong> We believe that sharing
-                stories and emotions through poetry can connect pet owners on a
-                profound level. Our poems serve as a bridge between people who
-                understand the deep bond between humans and their animal
-                companions.
-              </li>
-            </ol>
-            <h2 className="headline headline-3 section-title">Our Promise</h2>
-            <ul>
-              <li>
-                <strong>Personalized Poetry:</strong> Each poem we create is
-                custom-crafted to reflect the unique personality and experiences
-                of your pet. Whether it's a mischievous cat, a loyal dog, a
-                talkative parrot, or any other treasured creature, our poems
-                capture their essence.
-              </li>
+                    return (
+                      <div className="topics-post-card">
+                        <section className="topics-image-card">
+                          <Link
+                            to={post.node.fields.slug}
+                            itemProp="url"
+                            key={post.node.fields.slug}
+                          >
+                            <figure
+                              className="card-banner img-holder"
+                              style={{ width: "271px", height: "258px" }}
+                            >
+                              {imagePath && (
+                                <img
+                                  src={imagePath}
+                                  alt={altDescription}
+                                  width="271"
+                                  height="258"
+                                  loading="lazy"
+                                  className="img-cover"
+                                />
+                              )}
+                            </figure>
+                          </Link>
+                        </section>
+                        <section className="topics-content-card">
+                          <li>
+                            <div
+                              className="card-content"
+                              itemScope
+                              itemType="http://schema.org/Article"
+                            >
+                              {post.node.frontmatter.topic
+                                .split(",")
+                                .map((postTopic, index) => (
+                                  <div key={index} className="card-badge">
+                                    <a
+                                      href={`/topics/${postTopic
+                                        .trim()
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}/`}
+                                      className="span hover-2"
+                                    >
+                                      {postTopic.trim()}
+                                    </a>
+                                  </div>
+                                ))}
+                              <Link
+                                to={post.node.fields.slug}
+                                itemProp="url"
+                                key={post.node.fields.slug}
+                              >
+                                <h3 className="headline headline-3 card-title">
+                                  <span
+                                    className="link hover-2"
+                                    itemProp="headline"
+                                  >
+                                    {title}
+                                  </span>
+                                </h3>
 
-              <li>
-                <strong>Quality and Care:</strong> We take great care in
-                composing every poem, pouring our hearts and creativity into
-                each piece. We are passionate animal lovers who understand the
-                significance of your pet in your life.
-              </li>
+                                <h4 className="headline headline-4 card-title">
+                                  <span
+                                    className="link hover-2"
+                                    itemProp="headline"
+                                  >
+                                    {subtitle}
+                                  </span>
+                                </h4>
+                              </Link>
+                              <p
+                                className="card-text"
+                                dangerouslySetInnerHTML={{
+                                  __html:
+                                    post.node.frontmatter.description ||
+                                    post.node.excerpt,
+                                }}
+                                itemProp="description"
+                              />
+                              <Link
+                                to={post.node.fields.slug}
+                                itemProp="url"
+                                key={post.node.fields.slug}
+                                className="btn btn-primary btn-continue"
+                              >
+                                <span className="span">Continue Reading</span>
+                                <IonIcon
+                                  icon={arrowForward}
+                                  aria-hidden="true"
+                                />
+                              </Link>
+                              <p className="card-text">
+                                {post.node.frontmatter.date}
+                              </p>
+                              <div className="card-wrapper">
+                                <div className="card-tag">
+                                  {post.node.frontmatter.tags
+                                    .split(",")
+                                    .map((tag, index) => {
+                                      // Remove "#" and transform the tag for the link
+                                      const tagLink = `/tags/${tag
+                                        .replace(/^#/, "") // Remove leading "#"
+                                        .trim()
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}`
 
-              <li>
-                <strong>Free of Charge:</strong> As our name suggests, Free Pet
-                Poetry is committed to providing our services at no cost. We
-                believe that love should always be shared freely, and poetry is
-                one of the most beautiful ways to express it.
-              </li>
-            </ul>
-            <h2 className="headline headline-3 section-title">
-              Join the Free Pet Poetry Community
-            </h2>
-            <p className="single-text">
-              Whether you're seeking a poem to celebrate a special occasion with
-              your pet or looking for solace in the wake of loss, Free Pet
-              Poetry is here to serve you.
-            </p>
-            <p className="single-text">
-              Join our community of pet lovers, share your stories, and let us
-              craft the perfect poem to commemorate your furry, feathered, or
-              scaly companion.
-            </p>
-            <ul className="about-social-links">
-              <li>
-                <a
-                  href="https://twitter.com/freepetpoetry"
-                  class="social-link"
-                  target="_Blank"
-                  rel="noreferrer"
-                >
-                  <IonIcon icon={logoTwitter} />
-                  Twitter
-                </a>
-              </li>
+                                      return (
+                                        <Link
+                                          to={tagLink}
+                                          className="span hover-2"
+                                          key={index}
+                                        >
+                                          {tag.trim()}{" "}
+                                        </Link>
+                                      )
+                                    })}
+                                </div>
+                                <div className="wrapper">
+                                  <IonIcon
+                                    icon={timeOutline}
+                                    aria-hidden="true"
+                                  />
+                                  <span className="span">
+                                    {post.node.frontmatter.readtime} min
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </section>
+                      </div>
+                    )
+                  })
 
-              <li>
-                <a
-                  href="https://www.facebook.com/freepetpoetry/"
-                  class="social-link"
-                  target="_Blank"
-                  rel="noreferrer"
-                >
-                  <IonIcon icon={logoFacebook} />
-                  Facebook
-                </a>
-              </li>
+                return (
+                  <div
+                    className="topic-section"
+                    id={slugify(topic, { lower: true })}
+                    key={index}
+                  >
+                    <h2 className="headline headline-2 section-title">
+                      <span className="span">Poems about {topic}</span>
+                    </h2>
 
-              <li>
-                <a
-                  href="https://www.instagram.com/freepetpoetry/"
-                  class="social-link"
-                  target="_Blank"
-                  rel="noreferrer"
-                >
-                  <IonIcon icon={logoInstagram} />
-                  Instagram
-                </a>
-              </li>
-            </ul>
-            <p className="single-text">
-              Together, we'll celebrate the love, joy, and memories that our
-              pets bring into our lives. Let Free Pet Poetry be your poetic
-              partner in honoring the extraordinary bonds we share with our
-              beloved pets.
-            </p>
+                    <ul className="grid-list">
+                      <ol style={{ listStyle: "none" }}>{postsForTopic}</ol>
+                    </ul>
 
-            <p className="single-text">
-              To request your custom poem, click the link below:
-            </p>
-            <a
-              href="/requestform/"
-              target="_blank"
-              className="btn-hero btn-primary-hero"
-            >
-              Request Poetry Here
-            </a>
-          </div>
-          <img
-            src="/images/shadow-1.svg"
-            width="500"
-            height="800"
-            alt="shadows"
-            className="hero-bg hero-bg-1"
-          />
-          <img
-            src="/images/shadow-2.svg"
-            width="500"
-            height="500"
-            alt="shadows"
-            className="hero-bg hero-bg-2"
-          />
+                    {/* Pagination */}
+                    <nav aria-label="pagination" className="pagination">
+                      <button
+                        className="pagination-btn"
+                        aria-label="previous page"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                      >
+                        <IonIcon icon={arrowBack} aria-hidden="true" />
+                      </button>
+                      {Array.from({ length: totalPages }).map((_, index) => (
+                        <button
+                          key={index}
+                          className={`pagination-btn ${
+                            index + 1 === currentPage ? "active" : ""
+                          }`}
+                          onClick={() => handlePageChange(index + 1)}
+                        >
+                          {index + 1}
+                        </button>
+                      ))}
+                      <button
+                        className="pagination-btn"
+                        aria-label="next page"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                      >
+                        <IonIcon icon={arrowForward} aria-hidden="true" />
+                      </button>
+                    </nav>
+                  </div>
+                )
+              })}
+          </section>
+
+          {/* Topics List */}
+          <section className="topics-page" aria-labelledby="topic-label">
+            <div className="container">
+              <div className="card topics-page-card">
+                <div className="slider" data-slider>
+                  <ul className="slider-list">
+                    {topicsArray.map((topicObj, index) => {
+                      const topicSlug = slugify(topicObj.topic, {
+                        lower: true,
+                        remove: /[*+~.()'"!:@]/g,
+                      })
+
+                      const imageSource = `/images/topic-${topicSlug}.png`
+
+                      return (
+                        <li className="slider-item" key={index}>
+                          <Link
+                            to={`/topics/${topicSlug}/`}
+                            className="slider-link"
+                          >
+                            <figure className="slider-image img-holder">
+                              <img
+                                src={imageSource}
+                                alt={topicObj.topic}
+                                width="640"
+                                height="400"
+                                loading="lazy"
+                                className="img-cover"
+                              />
+                            </figure>
+                            <figcaption
+                              className="slider-caption"
+                              itemProp="text"
+                            >
+                              <span className="span">{topicObj.topic}</span>
+                              <span className="span">
+                                {articleCountsByTopic[topicObj.topic]} Articles
+                              </span>
+                            </figcaption>
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
     </Layout>
@@ -193,6 +342,26 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    allMarkdownRemark {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            subtitle
+            topic
+            alt
+            date(formatString: "MMMM DD, YYYY")
+            tags
+            readtime
+            popularity
+          }
+          excerpt
+        }
       }
     }
   }

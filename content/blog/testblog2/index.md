@@ -5,7 +5,7 @@ description: "Nature's Beauty"
 keywords: nature, adventure, exploration
 category: Travel
 topic: Pet Memorial, Exotic Animals
-tags: hiking, camping, wildlife
+tags: Unconditional, Sympathy, Cats
 featurescore: 8
 popularity: 7
 readtime: 4

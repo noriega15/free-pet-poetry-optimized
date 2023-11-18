@@ -5,7 +5,7 @@ description: "Culinary Exploration"
 keywords: food, travel, cuisine
 category: Food
 topic: Pet Memorial, Pet Care
-tags: fine-dining, foodie, international-cuisine
+tags: Dogs, Unconditional, Heartfelt
 featurescore: 8
 popularity: 6
 readtime: 3

@@ -5,7 +5,7 @@ description: "Cosmic Wonders"
 keywords: space, astronomy, cosmology
 category: Science
 topic: Pet Memorial, Pet Care
-tags: black-holes, galaxies, astrophysics
+tags: Memories, Grief, Birds
 featurescore: 8
 popularity: 8
 readtime: 4

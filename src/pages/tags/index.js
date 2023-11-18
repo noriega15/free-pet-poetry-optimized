@@ -53,15 +53,12 @@ const TagsPage = ({ data, location }) => {
   }
 
   const scrollToTop = () => {
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    const fromAnotherPage = urlSearchParams.get("from") === "anotherPage"
-
-    if (!fromAnotherPage && recentPostsRef.current) {
+    if (recentPostsRef.current) {
       recentPostsRef.current.scrollIntoView({ behavior: "smooth" })
     } else {
-      // Scroll to the top of the page
+      // Scroll to the top of the section
       window.scrollTo({
-        top: 0,
+        top: recentPostsRef.current.offsetTop,
         behavior: "smooth",
       })
     }
@@ -79,6 +76,7 @@ const TagsPage = ({ data, location }) => {
           []
         )
         .filter((tag, index, self) => self.indexOf(tag) === index)
+        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })) // Sort the tags alphabetically, ignoring case
         .map((tag, index) => (
           <button
             key={index}

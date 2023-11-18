@@ -15,7 +15,13 @@ const BlogPostTemplate = ({
 
   const title = post.frontmatter.title || (post.fields && post.fields.slug)
   const altDescription = post.frontmatter.alt || title
-  const imagePath = `/blog/${post.frontmatter.image}.jpg`
+
+  // Extract the folder name from the post slug
+  const imageFolder = post.parent.relativeDirectory
+
+  // Generate the image path using the extracted folder
+  const imagePath = `/blog/${imageFolder}.jpg`
+
   return (
     <Layout location={location} title={siteTitle}>
       <section className="hero" id="home" aria-label="home">
@@ -130,6 +136,9 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
@@ -144,6 +153,11 @@ export const pageQuery = graphql`
         author
         image
         updatedate
+      }
+      parent {
+        ... on File {
+          relativeDirectory
+        }
       }
     }
     allMarkdownRemark {

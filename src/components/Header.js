@@ -78,7 +78,7 @@ const Header = ({ isNavbarOpen, closeNavbar, toggleNavbar }) => {
 
             <li>
               <a
-                href="/featured/"
+                href="/featured-poems/"
                 className="navbar-link hover-1"
                 data-nav-toggler
                 onClick={closeNavbar}
@@ -166,8 +166,9 @@ const Header = ({ isNavbarOpen, closeNavbar, toggleNavbar }) => {
               beautiful verses about the pets we love. 🐾💖
             </p>
 
+            <p>Support our mission with a tip today!</p>
+
             <ul className="link-list">
-              {/* Include similar onClick handlers for link items */}
               <li>
                 <a
                   href="https://paypal.me/freepetpoetry?country.x=US&locale.x=en_US"
@@ -203,8 +204,6 @@ const Header = ({ isNavbarOpen, closeNavbar, toggleNavbar }) => {
                   Cash App
                 </a>
               </li>
-
-              {/* Include similar onClick handlers for other link items to close the navbar */}
             </ul>
           </div>
 

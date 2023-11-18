@@ -7,7 +7,7 @@ alt: "Picture of sunset over the ocean with dog prints in the sand"
 keywords: keyword1, keyword2, keyword3
 catagory: Action
 topic: Pet Memorial, Dogs
-tags: tag1, tag2, tag3
+tags: RainbowBridge, PetLoss, Memories
 featurescore: 8
 popularity: 10
 readtime: 18
