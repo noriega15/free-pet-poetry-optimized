@@ -25,7 +25,7 @@ const RecentPosts = () => {
                 <div className="recent-post-card">
                   <figure className="card-banner img-holder custom-banner-recent-post">
                     <img
-                      src={`/images/recent-post-${index}.jpg`}
+                      src={`/images/recent-post-${index}.webp`}
                       width="271"
                       height="258"
                       loading="lazy"

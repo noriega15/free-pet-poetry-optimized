@@ -64,7 +64,7 @@ const FeaturePostPage = ({ posts }) => {
                 const subtitle = post.frontmatter.subtitle
                 const imageFolder = post.fields.slug.split("/").slice(-2, -1)[0]
                 const altDescription = post.frontmatter.alt || title
-                const imagePath = `/blog/${imageFolder}.jpg`
+                const imagePath = `/blog/${imageFolder}.webp`
 
                 return (
                   <div key={post.fields.slug} className="recent-post-card">
