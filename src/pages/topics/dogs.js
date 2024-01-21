@@ -94,7 +94,7 @@ const DogsPage = ({ data, location }) => {
                       .split("/")
                       .slice(-2, -1)[0]
                     const altDescription = post.node.frontmatter.alt || title
-                    const imagePath = `/blog/${imageFolder}.jpg`
+                    const imagePath = `/blog/${imageFolder}.webp`
 
                     return (
                       <div className="topics-post-card">
@@ -289,7 +289,7 @@ const DogsPage = ({ data, location }) => {
                         remove: /[*+~.()'"!:@]/g,
                       })
 
-                      const imageSource = `/images/topic-${topicSlug}.png`
+                      const imageSource = `/images/topic-${topicSlug}.webp`
 
                       return (
                         <li className="slider-item" key={index}>

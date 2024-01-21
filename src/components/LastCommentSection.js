@@ -18,7 +18,7 @@ const LastCommentSection = () => {
             <div className="profile-card">
               <figure className="profile-banner img-holder">
                 <img
-                  src="/images/author-6.png"
+                  src="/images/author-6.webp"
                   width="32"
                   height="32"
                   loading="lazy"
@@ -47,7 +47,7 @@ const LastCommentSection = () => {
             <div className="profile-card">
               <figure className="profile-banner img-holder">
                 <img
-                  src="/images/author-7.png"
+                  src="/images/author-7.webp"
                   width="32"
                   height="32"
                   loading="lazy"
@@ -76,7 +76,7 @@ const LastCommentSection = () => {
             <div className="profile-card">
               <figure className="profile-banner img-holder">
                 <img
-                  src="/images/author-8.png"
+                  src="/images/author-8.webp"
                   width="32"
                   height="32"
                   loading="lazy"

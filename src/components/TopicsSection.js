@@ -124,7 +124,7 @@ const TopicsSection = ({ data }) => {
                 })
 
                 // Adjusted the image source to match the naming convention
-                const imageSource = `/images/topic-${topicSlug}.png`
+                const imageSource = `/images/topic-${topicSlug}.webp`
 
                 // You can customize the link and other details here
                 return (

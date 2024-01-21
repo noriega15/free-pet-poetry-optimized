@@ -20,7 +20,7 @@ const RecentPoemsPage = ({ data, location }) => {
             </h1>
 
             <p className="single-text">
-              Discover excellence in every word on our 'Featured Post' page.
+              Discover excellence in every word on our 'Featured Poems' page.
               Immerse yourself in a curated selection of outstanding articles,
               stories, and insights that captivate, inspire, and stand out for
               their exceptional quality. Explore the best of our content,

@@ -23,7 +23,7 @@ const InstagramCard = () => {
               className="insta-post img-holder custom-banner-insta-post"
             >
               <img
-                src={`/images/insta-post-${index}.png`}
+                src={`/images/insta-post-${index}.webp`}
                 width="276"
                 height="277"
                 loading="lazy"
