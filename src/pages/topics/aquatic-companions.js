@@ -16,7 +16,7 @@ const AquaticCompanionsPage = ({ data, location }) => {
     { topic: "Birds" },
     { topic: "Small Pets" },
     { topic: "Aquatic Companions" },
-    { topic: "Exotic Animals" },
+    { topic: "Reptiles" },
     { topic: "Pet Care" },
   ]
 
