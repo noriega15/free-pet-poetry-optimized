@@ -14,13 +14,14 @@ module.exports = {
       name: `M Noriega`,
       summary: ``,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `Express love and honor pets through custom-crafted poetry at Free Pet Poetry. Celebrate life, cherish memories, and foster connection with our heartfelt verses. Join our pet-loving community!`,
+    siteUrl: `https://freepetpoetry.com/`,
     social: {
       twitter: `freepetpoetry`,
     },
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

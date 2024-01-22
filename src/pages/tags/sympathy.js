@@ -100,7 +100,7 @@ const SympathyTagPage = ({ data, location }) => {
           const subtitle = post.frontmatter.subtitle
           const imageFolder = post.fields.slug.split("/").slice(-2, -1)[0]
           const altDescription = post.frontmatter.alt || title
-          const imagePath = `/blog/${imageFolder}.jpg`
+          const imagePath = `/blog/${imageFolder}.webp`
 
           return (
             <div key={post.fields.slug} className="recent-post-card">
@@ -327,7 +327,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         html
         excerpt

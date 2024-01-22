@@ -1,12 +1,13 @@
 ---
 title: Forever in Our Hearts
 subtitle: A Tribute to Our Beloved Pets
-description: "Second Post"
+description: "Losing a pet is a wound that never truly heals,
+For many days, their absence is what the heart still keenly feels."
 date: "2023-10-24T13:46:37.121Z"
 alt: "Picture of sunset over the ocean with dog prints in the sand"
 keywords: Pet Poem, Pet Poetry, Pet Loss, Rainbow Bridge
 catagory: Action
-topic: Pet Memorial, Dogs
+topic: Pet Memorial
 tags: RainbowBridge, PetLoss, Memories
 featurescore: 10
 popularity: 10

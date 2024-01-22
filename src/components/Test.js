@@ -1082,7 +1082,7 @@ function App() {
                       <div className="recent-post-card">
                         <figure className="card-banner img-holder custom-banner-recent-post">
                           <img
-                            src="./images/recent-post-1.jpg"
+                            src="./images/recent-post-1.webp"
                             width="271"
                             height="258"
                             loading="lazy"
@@ -1146,7 +1146,7 @@ function App() {
                       <div className="recent-post-card">
                         <figure className="card-banner img-holder custom-banner-recent-post">
                           <img
-                            src="./images/recent-post-2.jpg"
+                            src="./images/recent-post-2.webp"
                             width="271"
                             height="258"
                             loading="lazy"
@@ -1210,7 +1210,7 @@ function App() {
                       <div className="recent-post-card">
                         <figure className="card-banner img-holder custom-banner-recent-post">
                           <img
-                            src="./images/recent-post-3.jpg"
+                            src="./images/recent-post-3.webp"
                             width="271"
                             height="258"
                             loading="lazy"
@@ -1274,7 +1274,7 @@ function App() {
                       <div className="recent-post-card">
                         <figure className="card-banner img-holder custom-banner-recent-post">
                           <img
-                            src="./images/recent-post-4.jpg"
+                            src="./images/recent-post-4.webp"
                             width="271"
                             height="258"
                             loading="lazy"
@@ -1338,7 +1338,7 @@ function App() {
                       <div className="recent-post-card">
                         <figure className="card-banner img-holder custom-banner-recent-post">
                           <img
-                            src="./images/recent-post-5.jpg"
+                            src="./images/recent-post-5.webp"
                             width="271"
                             height="258"
                             loading="lazy"
@@ -1455,7 +1455,7 @@ function App() {
                         <div className="popular-card">
                           <figure className="card-banner img-holder custom-banner-popular-post">
                             <img
-                              src="./images/popular-post-1.jpg"
+                              src="./images/popular-post-1.webp"
                               width="64"
                               height="64"
                               loading="lazy"
@@ -1492,7 +1492,7 @@ function App() {
                         <div className="popular-card">
                           <figure className="card-banner img-holder custom-banner-popular-post">
                             <img
-                              src="./images/popular-post-2.jpg"
+                              src="./images/popular-post-2.webp"
                               width="64"
                               height="64"
                               loading="lazy"
@@ -1529,7 +1529,7 @@ function App() {
                         <div className="popular-card">
                           <figure className="card-banner img-holder custom-banner-popular-post">
                             <img
-                              src="./images/popular-post-3.jpg"
+                              src="./images/popular-post-3.webp"
                               width="64"
                               height="64"
                               loading="lazy"
@@ -1567,7 +1567,7 @@ function App() {
                         <div className="popular-card">
                           <figure className="card-banner img-holder custom-banner-popular-post">
                             <img
-                              src="./images/popular-post-4.jpg"
+                              src="./images/popular-post-4.webp"
                               width="64"
                               height="64"
                               loading="lazy"
@@ -1604,7 +1604,7 @@ function App() {
                         <div className="popular-card">
                           <figure className="card-banner img-holder custom-banner-popular-post">
                             <img
-                              src="./images/popular-post-2.jpg"
+                              src="./images/popular-post-2.webp"
                               width="64"
                               height="64"
                               loading="lazy"
