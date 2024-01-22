@@ -20,7 +20,7 @@ const BlogPostTemplate = ({
   const imageFolder = post.parent.relativeDirectory
 
   // Generate the image path using the extracted folder
-  const imagePath = `/blog/${imageFolder}.jpg`
+  const imagePath = `/blog/${imageFolder}.webp`
 
   return (
     <Layout location={location} title={siteTitle}>
