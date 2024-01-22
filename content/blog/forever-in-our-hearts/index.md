@@ -4,13 +4,13 @@ subtitle: A Tribute to Our Beloved Pets
 description: "Second Post"
 date: "2023-10-24T13:46:37.121Z"
 alt: "Picture of sunset over the ocean with dog prints in the sand"
-keywords: keyword1, keyword2, keyword3
+keywords: Pet Poem, Pet Poetry, Pet Loss, Rainbow Bridge
 catagory: Action
 topic: Pet Memorial, Dogs
 tags: RainbowBridge, PetLoss, Memories
-featurescore: 8
+featurescore: 10
 popularity: 10
-readtime: 18
+readtime: 1.5
 author: M. Noriega
 image: forever-in-our-hearts
 updatedate: "2023-11-10"
