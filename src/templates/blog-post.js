@@ -148,6 +148,7 @@ export const pageQuery = graphql`
         catagory
         topic
         tags
+        featurescore
         popularity
         readtime
         author
@@ -176,6 +177,7 @@ export const pageQuery = graphql`
           catagory
           topic
           tags
+          featurescore
           popularity
           readtime
           author

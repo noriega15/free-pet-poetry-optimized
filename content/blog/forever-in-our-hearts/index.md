@@ -27,7 +27,7 @@ Some left us many years ago, others not so long,
 
 But in our hearts, their memories remain vivid and strong.
 
-Their love was pure, a guiding light so bright,
+<br>Their love was pure, a guiding light so bright,
 
 An unbreakable bond, a source of pure delight.
 
@@ -35,7 +35,7 @@ No love from humans could quite compare,
 
 Their deep devotion, a love so wonderfully rare.
 
-In their eyes, we found solace and joy so sweet,
+<br>In their eyes, we found solace and joy so sweet,
 
 Their wagging tails, a happiness that couldn't be beat.
 
@@ -43,7 +43,7 @@ No matter how much time passes on this way,
 
 Their absence lingers, like a shadow every day.
 
-Each pet had a unique and precious soul,
+<br>Each pet had a unique and precious soul,
 
 Their absence leaves a void that takes its toll.
 
@@ -51,7 +51,7 @@ We'll hold their memories close in our heart's embrace,
 
 Though they're gone, they're still an integral part of this place.
 
-Through the years, their love we'll forever carry,
+<br>Through the years, their love we'll forever carry,
 
 In our thoughts and dreams, their spirits won't vary.
 
